@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
@@ -20,6 +21,26 @@ export const OrderInfo: FC = () => {
     ingredients: ['']
   });
   const ingredients: TIngredient[] = useSelector(getAllIngredients);
+=======
+import { FC, useMemo } from 'react';
+import { Preloader } from '../ui/preloader';
+import { OrderInfoUI } from '../ui/order-info';
+import { TIngredient } from '@utils-types';
+
+export const OrderInfo: FC = () => {
+  /** TODO: взять переменные orderData и ingredients из стора */
+  const orderData = {
+    createdAt: '',
+    ingredients: [],
+    _id: '',
+    status: '',
+    name: '',
+    updatedAt: 'string',
+    number: 0
+  };
+
+  const ingredients: TIngredient[] = [];
+>>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
@@ -63,12 +84,15 @@ export const OrderInfo: FC = () => {
     };
   }, [orderData, ingredients]);
 
+<<<<<<< HEAD
   useEffect(() => {
     getOrderByNumberApi(Number(params.number)).then((data) => {
       setOrderData(data.orders[0]);
     });
   }, []);
 
+=======
+>>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
   if (!orderInfo) {
     return <Preloader />;
   }
