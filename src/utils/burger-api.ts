@@ -76,10 +76,7 @@ export const getIngredientsApi = () =>
     .then((res) => checkResponse<TIngredientsResponse>(res))
     .then((data) => {
       if (data?.success) return data.data;
-<<<<<<< HEAD
       console.log(`Данные с сервера: ${data}`);
-=======
->>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
       return Promise.reject(data);
     });
 

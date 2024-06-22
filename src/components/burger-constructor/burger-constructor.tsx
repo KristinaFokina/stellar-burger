@@ -1,7 +1,6 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { getAuthChecked, getUser } from '../../services/slices/auth';
@@ -37,26 +36,6 @@ export const BurgerConstructor: FC = () => {
     dispatch(resetConstructor());
     navigate('/');
   };
-=======
-
-export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
-
-  const orderRequest = false;
-
-  const orderModalData = null;
-
-  const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
-  };
-  const closeOrderModal = () => {};
->>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
 
   const price = useMemo(
     () =>
@@ -68,21 +47,12 @@ export const BurgerConstructor: FC = () => {
     [constructorItems]
   );
 
-<<<<<<< HEAD
-=======
-  return null;
-
->>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
   return (
     <BurgerConstructorUI
       price={price}
       orderRequest={orderRequest}
       constructorItems={constructorItems}
-<<<<<<< HEAD
       orderModalData={order}
-=======
-      orderModalData={orderModalData}
->>>>>>> ac40a997d38dcffa4ae8e0725ddf13bd1d85c75a
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
     />
