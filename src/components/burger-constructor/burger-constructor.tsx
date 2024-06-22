@@ -3,34 +3,42 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
-import { getAuthChecked, getUser } from '../../services/slices/auth';
-import { buildOrder, resetOrder } from '../../services/slices/orderBuilder';
-import { resetConstructor } from '../../services/slices/constructor';
+import { buildOrder, resetOrder } from '../../slices/order-builder-slice';
+import { resetConstructor } from '../../slices/constructor-slice';
+import { getAuthChecked, getUser } from '../../slices/user-slice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { constructorItems } = useSelector((state) => state.burgerConstructor);
+
+  const constructorItems = useSelector((state) => state.burgerConstructor);
+  const { order, orderRequest } = useSelector((state) => state.orderBuilder);
+
   const isAuthChecked = useSelector(getAuthChecked);
   const user = useSelector(getUser);
-  const { orderRequest, order } = useSelector((state) => state.orderBuilder);
 
   const onOrderClick = () => {
     if (!isAuthChecked || !user) {
       navigate('/login');
       return;
     }
-    //! Оформление заказа работает если булка выбрана и ингредиенты тоже
-    if (constructorItems.bun && constructorItems.ingredients) {
-      const ingredients = [
-        constructorItems.bun._id,
-        ...constructorItems.ingredients.map((ing) => ing._id),
-        constructorItems.bun._id
-      ];
-      dispatch(buildOrder(ingredients));
-    }
+
+    if (
+      !constructorItems.bun ||
+      constructorItems.ingredients.length < 0 ||
+      orderRequest
+    )
+      return;
+
+    const ingredients = [
+      constructorItems.bun._id,
+      ...constructorItems.ingredients.map((unit) => unit._id),
+      constructorItems.bun._id
+    ];
+
+    dispatch(buildOrder(ingredients));
   };
+
   const closeOrderModal = () => {
     dispatch(resetOrder());
     dispatch(resetConstructor());

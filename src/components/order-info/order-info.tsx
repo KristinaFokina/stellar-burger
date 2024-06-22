@@ -2,24 +2,24 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient, TOrder } from '@utils-types';
-import { useSelector } from '../../services/store';
-
 import { useParams } from 'react-router-dom';
+import { getIngredients } from '../../slices/ingredients-slice';
+import { useSelector } from '../../services/store';
 import { getOrderByNumberApi } from '@api';
-import { getAllIngredients } from '../../services/slices/ingredients';
 
 export const OrderInfo: FC = () => {
   const params = useParams();
   const [orderData, setOrderData] = useState<TOrder>({
+    createdAt: '',
+    ingredients: [],
     _id: '',
     status: '',
     name: '',
-    createdAt: '',
-    updatedAt: '',
-    number: 0,
-    ingredients: ['']
+    updatedAt: 'string',
+    number: 0
   });
-  const ingredients: TIngredient[] = useSelector(getAllIngredients);
+
+  const ingredients: TIngredient[] = useSelector(getIngredients);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
