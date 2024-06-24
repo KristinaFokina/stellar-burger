@@ -62,6 +62,8 @@ function App() {
           element={<OnlyAuth component={<ProfileOrders />} />}
         />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route path='/profile/orders/:number' element={<OrderInfo />} />
       </Routes>
 
       {backgroundLocation && (
@@ -101,6 +103,3 @@ function App() {
 }
 
 export default App;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
